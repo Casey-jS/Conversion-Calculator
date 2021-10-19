@@ -99,7 +99,54 @@ class Calculator(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        # add calculator GUI
+        def temp():
+            return
+
+        e = Entry(self, font=('Century 26'), width=14, borderwidth=5)
+        e.grid(row=0, column=0, columnspan=4)
+
+        button_1 = Button(self, text="1", width=3, height=2, command=temp)
+        button_2 = Button(self, text="2", width=3, height=2, command=temp)
+        button_3 = Button(self, text="3", width=3, height=2, command=temp)
+        button_4 = Button(self, text="4", width=3, height=2, command=temp)
+        button_5 = Button(self, text="5", width=3, height=2, command=temp)
+        button_6 = Button(self, text="6", width=3, height=2, command=temp)
+        button_7 = Button(self, text="7", width=3, height=2, command=temp)
+        button_8 = Button(self, text="8", width=3, height=2, command=temp)
+        button_9 = Button(self, text="9", width=3, height=2, command=temp)
+        button_0 = Button(self, text="0", width=3, height=2, command=temp)
+        button_add = Button(self, text="+", width=3, height=2, command=temp)
+        button_mult = Button(self, text="x", width=3, height=2, command=temp)
+        button_div = Button(self, text="/", width=3, height=2, command=temp)
+        button_sub = Button(self, text="-", width=3, height=2, command=temp)
+        button_equal = Button(self, text="=", width=3, height=2, command=temp)
+        button_clear = Button(self, text="Clear", width=24, height=2, command=temp)
+        button_dec = Button(self, text=".", width=3, height=2, command=temp)
+
+        #Puts the buttons on the screen
+
+        button_1.grid(row=3, column=0)
+        button_2.grid(row=3, column=1)
+        button_3.grid(row=3, column=2)
+        button_sub.grid(row=3, column=3)
+
+        button_4.grid(row=2, column=0)
+        button_5.grid(row=2, column=1)
+        button_6.grid(row=2, column=2)
+        button_mult.grid(row=2, column=3)
+
+        button_7.grid(row=1, column=0)
+        button_8.grid(row=1, column=1)
+        button_9.grid(row=1, column=2)
+        button_div.grid(row=1, column=3)
+
+        button_0.grid(row=4, column=0)
+        button_dec.grid(row=4, column=1)
+        button_equal.grid(row=4, column=2)
+        button_add.grid(row=4, column=3)
+
+
+        button_clear.grid(row=5, column=0, columnspan=4)
 
 app = App()
 app.mainloop()
