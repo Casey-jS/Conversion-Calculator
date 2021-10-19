@@ -3,7 +3,7 @@
 #
 #decimal to binary
 def dec_to_bin(decimal):
-    return bin(decimal)[2:]
+    return int(bin(decimal)[2:])
 
 #decimal to hex
 def dec_to_hex(dec):

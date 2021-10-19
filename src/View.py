@@ -11,6 +11,7 @@ window.config(bg="black") """
 
 #initialize default font
 font = ("Helvetica", 8)
+state = "None"
 
 class App(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -29,6 +30,7 @@ class App(tk.Tk):
             frame.grid(row = 0, column = 0, sticky ="nsew")
   
         self.show_frame(Menu)
+        state = "Menu"
         self.config(bg="black")
 
     def show_frame(self, cont):
@@ -54,13 +56,16 @@ class Menu(tk.Frame):
         calc_button = Button(self, text="Calculator")
         menu_buttons(calc_button, .1)
         calc_button.config(command = lambda : controller.show_frame(Calculator))
+        state = "Calc"
         
         num_button = Button(self, text="Number Conversion")
         menu_buttons(num_button, .2)
         num_button.config(command = lambda: controller.show_frame(NumberConversion))
+        state = "Num"
     
         unit_button = Button(self, text="Unit Conversion")
         menu_buttons(unit_button, .3)
+        state = "Unit"
         
 class NumberConversion(tk.Frame):
 
