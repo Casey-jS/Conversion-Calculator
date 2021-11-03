@@ -53,6 +53,33 @@ def hex_to_dec(hex):
 
 def hex_to_oct(hex):
     dec = int(hex, 10)
+    pass
+
+#inches
+#cm
+#mm
+#m
+#km
+#mi
+#ft
+
+
+def in_to_cm(inch): return 2.54 * inch
+def in_to_feet(inch): return 12 / inch
+def in_to_mm(inch): return 25.4 * inch
+def in_to_m(inch): return .254 * inch
+def in_to_km(inch): return .000254 * inch
+def in_to_mi(inch): return inch / (5280 * 12)
+
+def cm_to_in(cm): return cm / 2.54
+def cm_to_feet(cm): return cm / 30.48
+def cm_to_mm(cm): return 10 * cm
+def cm_to_m(cm): return 100 / cm
+def cm_to_km(cm): return 100000 / cm
+def cm_to_mi(cm): return 
+
+
+
 
 
 

@@ -2,17 +2,14 @@ from tkinter import *
 import tkinter as tk
 from tkinter import font as f
 from tkinter import ttk
+import Controller
 
-#initializing the window globally
-""" window = tk.Tk()
-window.geometry('600x400')
-window.title('Conversion Calculator')
-window.config(bg="black") """
 
 #initialize default font
 font = ("Helvetica", 8)
 state = "None"
 
+#app class of type window
 class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -21,7 +18,7 @@ class App(tk.Tk):
         self.geometry('600x400')
         self.title('Calculator++')
        
-
+        # initialize frames by stacking them on top of eachother
         self.frames = {}
         for F in (Menu, NumberConversion, Calculator):
   
@@ -33,17 +30,22 @@ class App(tk.Tk):
         state = "Menu"
         self.config(bg="black")
 
+    # called to move a frame to top of list
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
+#menu class of type Frame
 class Menu(tk.Frame):
 
     def __init__(self, parent, controller):
+
+        #initialize menu frame
         tk.Frame.__init__(self, parent) 
         self.config(width = 600, height = 400, bg="black")
+
        #title label
-        label = Label(self, text="Universal Calculator")
+        label = Label(self, text="Calculator++")
         label.config(font=f.Font(family='Helvetica', size=16), bg='black', fg='white')
         label.place(relx = .5, rely=.1, anchor='center')
 
@@ -56,31 +58,50 @@ class Menu(tk.Frame):
         calc_button = Button(self, text="Calculator")
         menu_buttons(calc_button, .1)
         calc_button.config(command = lambda : controller.show_frame(Calculator))
-        state = "Calc"
+        
         
         num_button = Button(self, text="Number Conversion")
         menu_buttons(num_button, .2)
         num_button.config(command = lambda: controller.show_frame(NumberConversion))
-        state = "Num"
+        
     
         unit_button = Button(self, text="Unit Conversion")
         menu_buttons(unit_button, .3)
-        state = "Unit"
+
         
 class NumberConversion(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
+
+        # set options for number choice
         num_options = ["Hex", "Decimal", "Binary", "Octal"]
-        num_inside = tk.StringVar(self)
-        num_inside.set("Select Number Type")
-        num_menu = tk.OptionMenu(self, num_inside, *num_options)
-        num_menu.config(height=1, bg="white", text="black", font=font)
+        num_chosen = tk.StringVar(self)
+        num_chosen.set("Select Number Type")
+
+        def print_type(choice):
+            chosen = Label(text=choice, font = font)
+            chosen.pack()
+
+        #create drop down menu
+        num_menu = OptionMenu(self, 
+                                                    num_chosen, 
+                                                    *num_options)
+        num_menu.config(height=1, 
+                                       bg="white", 
+                                       text="black", 
+                                       font=font,
+                                       command = print_type(num_chosen.get()))
+
         num_menu.pack(side = tk.LEFT, padx=10)
 
-        input = Text(self, height=1, width=16, bg="white")
-        input.pack(side=tk.LEFT,padx=10)
+        input_choice = "None"
+        output_choice = "None"
+
+        input_box = Text(self, height=1, width=16, bg="white") # command = Controller.convert()
+        input_box.pack(side=tk.LEFT,padx=10)
+
 
         num_output_inside = tk.StringVar(self)
         num_output_inside.set("Select Output Type")
@@ -89,10 +110,13 @@ class NumberConversion(tk.Frame):
         num_output_menu.pack(side = tk.LEFT, padx=10)
 
         output = Text(self, height=1, width =16, bg="white")
+        #output.config(text=Controller.get_num_output(input, input_choice, output_choice))
         output.pack(side = tk.LEFT, padx= 10)
 
-        back_button = Button(self, command = lambda : App.show_frame(Menu), text="Back To Menu", bg="white", fg="black")
-        back_button.place(rely=.1, relx=.1, anchor='center')
+        #back_button = Button(self, command = App.show_frame(Menu(self)), text="Back To Menu", bg="white", fg="black")
+       # back_button.place(rely=.1, relx=.1, anchor='center')
+    
+    
 
 class Calculator(tk.Frame):
     def __init__(self, parent, controller):
