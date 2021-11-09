@@ -1,0 +1,61 @@
+#create input box
+        """ input_box = Entry(self, 
+                                      width=16, 
+                                      bg="black",
+                                      fg = "white",
+                                      highlightbackground = 'deep sky blue')
+        input_box.pack(side = tk.LEFT, padx = 10)
+        input = input_box.get() """
+
+ """ def place_buttons(button, height):
+            button.place(relx = .2, rely = height)
+
+        place_buttons(binary_button, .15)
+        place_buttons(hex_button, .3)
+        place_buttons(decimal_button, .45)
+        place_buttons(octal_button, .6) """
+
+ """ #create drop down menu
+        num_menu = OptionMenu(self,  in_chosen, *num_options)
+        num_menu.config(bg="black",
+                                      highlightbackground = 'deep sky blue', 
+                                      highlightcolor = 'deep sky blue',
+                                      fg = 'deep sky blue', 
+                                      font=font)
+        num_menu.pack(side = tk.LEFT, padx=10) """
+
+num_output_menu.pack(side = tk.LEFT, padx=10) """
+
+
+        """ output = Controller.convert_num(in_chosen.get(), input, out_chosen.get())
+
+        output_box = Text(self, height=1, width =16, bg="white")
+        output_box.pack(side = tk.LEFT, padx= 10)
+
+        convert_button = Button(self, 
+                                                width = 10, 
+                                                font = f.Font(family="Helvetica", size = 12), 
+                                                bg = "black", 
+                                                fg = 'deep sky blue', 
+                                                text = "Convert",
+                                                highlightbackground = 'deep sky blue', 
+                                                command = lambda : show_output()).place(
+                                                relx = .5,
+                                                rely = .7,
+                                                anchor = 'center')
+        
+        def show_output():
+            output_box.config(text = output) """
+
+        #back_button = Button(self, command = App.show_frame(Menu(self)), text="Back To Menu", bg="white", fg="black")
+       # back_button.place(rely=.1, relx=.1, anchor='center')
+
+#create output choice menu
+        """ out_chosen = tk.StringVar(self)
+        out_chosen.set("Select Output Type")
+        num_output_menu = tk.OptionMenu(self, out_chosen, *num_options)
+        num_output_menu.config(height=1, 
+                                                   bg="black", 
+                                                   fg = 'deep sky blue',
+                                                   highlightbackground = 'deep sky blue', 
+                                                   font=font)""

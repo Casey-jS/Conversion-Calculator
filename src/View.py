@@ -4,10 +4,8 @@ from tkinter import font as f
 from tkinter import ttk
 from Controller import Controller
 
-
 #initialize default font
 font = ("Helvetica", 8)
-state = "None"
 
 #app class of type window
 class App(tk.Tk):
@@ -17,18 +15,15 @@ class App(tk.Tk):
         container.pack(side='top', fill='both', expand=True)
         self.geometry('600x400')
         self.title('Calculator++')
-        self.resizable(False, False)
        
         # initialize frames by stacking them on top of eachother
         self.frames = {}
         for F in (Menu, Numbers):
-  
             frame = F(container, self)
             self.frames[F] = frame
-            frame.grid(row = 0, column = 0, sticky ="nsew")
-  
+            frame.grid(row = 0, column = 0, sticky = 'nsew')
+    
         self.show_frame(Menu)
-        state = "Menu"
         self.config(bg="black")
 
     # called to move a frame to top of list
@@ -40,12 +35,14 @@ class App(tk.Tk):
 class Menu(tk.Frame):
     def __init__(self, parent, controller):
         title_font = f.Font(family='Helvetica', size=16)
-        #initialize menu frame
-        tk.Frame.__init__(self, parent)
-        self.config(width = 600, height = 400, bg="black")
-
+        
+        # Make Menu
+        tk.Frame.__init__(self, parent, 
+                                     width = 600, 
+                                     height = 400, 
+                                     bg = "black")
        #title label
-        label = Label(self, text="Calculator++", font=title_font, bg='black', fg="white")
+        label = Label(self, text="Calculator++", font=title_font, bg='black', fg="deep sky blue")
         label.place(relx =.5, rely = .1, anchor = 'center')
         
         #formats the buttons
@@ -53,7 +50,11 @@ class Menu(tk.Frame):
             b.config(font=f.Font(family='Helvetica', size=10), bg='black', fg='white', highlightbackground='blue')
             b.place(relx=.5, rely=.5 + h, anchor='center')
         
-        num_button = Button(self, text="Number Conversion", command = lambda : controller.show_frame(Numbers))
+        num_button = Button(self, text="Number Conversion", 
+                                                             command = lambda : controller.show_frame(Numbers), 
+                                                             activebackground = 'deep sky blue',
+                                                             fg = 'deep sky blue',
+                                                             )
         unit_button = Button(self, text="Unit Conversion")
         graph_button = Button(self, text="Graphing")
 
@@ -68,58 +69,64 @@ class Numbers(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
 
-        # set options for number choice
-        num_options = ["Hex", "Decimal", "Binary", "Octal"]
-        in_chosen = tk.StringVar(self)
-        in_chosen.set("Select Number Type")
+        in_text = Label(self, text = "Input Type",  fg = 'deep sky blue', bg = 'black', font = ("Helvetica", 24))
+        in_text.place(rely = .05, relx = .3, anchor = 'center')
 
-        #create drop down menu
-        num_menu = OptionMenu(self,  in_chosen, *num_options)
-        num_menu.config(height=1, bg="white",  text="black", font=font)
-        num_menu.pack(side = tk.LEFT, padx=10)
+        out_text = Label(self, text = "Output Type", fg = 'deep sky blue', bg ='black', font = ("Helvetica", 24))
+        out_text.place(rely = .05, relx = .7, anchor = 'center')
 
-        def print_chosen(in_choice, location):
-            choice = Label(text = in_choice, fg = "White")
-            choice.pack(side = tk.LEFT, pady = 10, padx = location)
+        binary_button = Button(self, text = "Binary", command = lambda : in_button_clicked(binary_button, "Binary"))
+        hex_button = Button(self, text = "Hex", command = lambda : in_button_clicked(hex_button, "Hex"))
+        decimal_button = Button(self, text = "Decimal", command = lambda : in_button_clicked(decimal_button, "Decimal"))                   
+        octal_button = Button(self, text = "Octal", command = lambda : in_button_clicked(octal_button, "Octal"))
 
-        print_chosen(in_chosen.get(),  30)
+        binary_button2 = Button(self, text = "Binary", command = lambda : out_button_clicked(binary_button2, "Binary"))
+        hex_button2 = Button(self, text = "Hex", command = lambda : out_button_clicked(hex_button2, "Hex"))
+        decimal_button2= Button(self, text = "Decimal", command = lambda : out_button_clicked(decimal_button2, "Decimal"))                   
+        octal_button2 = Button(self, text = "Octal", command = lambda : out_button_clicked(octal_button2, "Octal"))
 
-        #create input box
-        input_box = Entry(self, width=16, bg="white")
-        input_box.pack(side=tk.LEFT, padx=10)
-        input = input_box.get()
+        # arrange input buttons                       
+        start_height = .15
+        for button in (binary_button, hex_button, decimal_button, octal_button):
+            button.config(fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ('Helvetica', 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+            button.place(relx = .2, rely = start_height)
+            start_height += .12
 
-        #create output choice menu
-        out_chosen = tk.StringVar(self)
-        out_chosen.set("Select Output Type")
-        num_output_menu = tk.OptionMenu(self, out_chosen, *num_options)
-        num_output_menu.config(height=1, bg="white", text="black", font=font)
-        num_output_menu.pack(side = tk.LEFT, padx=10)
+        # arrange output buttons
+        start_height = .15
+        for button in (binary_button2, hex_button2, decimal_button2, octal_button2):
+            button.config(fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+            button.place(relx = .6, rely = start_height)
+            start_height += .12
 
+        input_choice = ""
+        output_choice = ""
 
-        output = Controller.convert_num(in_chosen.get(), input, out_chosen.get())
+        def in_button_clicked(button, choice):
+            button.config(bg = 'deep sky blue', fg = 'black')
+            input_type = choice
+        
+        def out_button_clicked(button, choice):
+            button.config(bg = 'deep sky blue', fg = 'black')
+            output_type = choice
 
-        output_box = Text(self, height=1, width =16, bg="white")
-        output_box.pack(side = tk.LEFT, padx= 10)
 
         
 
-        convert_button = Button(self, width = 20, 
-                                                font = f.Font(family="Helvetica", size = 12), 
-                                                bg = "grey", 
-                                                fg = "white", 
-                                                text = "Convert",
-                                                command = lambda : show_output()).pack(
-                                                side = tk.BOTTOM, 
-                                                pady = 20)
         
-        def show_output():
-            output_box.config(text = output)
+                                                
 
-
-
-        #back_button = Button(self, command = App.show_frame(Menu(self)), text="Back To Menu", bg="white", fg="black")
-       # back_button.place(rely=.1, relx=.1, anchor='center')
+        
 
 
 app = App()
