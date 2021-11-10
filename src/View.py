@@ -18,7 +18,7 @@ class App(tk.Tk):
        
         # initialize frames by stacking them on top of eachother
         self.frames = {}
-        for F in (Menu, Numbers):
+        for F in (Menu, Numbers, Graph):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row = 0, column = 0, sticky = 'nsew')
@@ -56,7 +56,11 @@ class Menu(tk.Frame):
                                                              fg = 'deep sky blue',
                                                              )
         unit_button = Button(self, text="Unit Conversion")
-        graph_button = Button(self, text="Graphing")
+        graph_button = Button(self, text="Graphing",
+                                                             command = lambda : controller.show_frame(Graph),
+                                                             activebackground = 'deep sky blue',
+                                                             fg = 'deep sky blue',
+                                                             )
 
         menu_buttons(num_button, .1)
         menu_buttons(unit_button, .2)
@@ -119,6 +123,65 @@ class Numbers(tk.Frame):
         def out_button_clicked(button, choice):
             button.config(bg = 'deep sky blue', fg = 'black')
             output_type = choice
+
+
+class Graph(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width = 600, height = 400, bg="black")
+
+        file_btn = Button(self, 
+                                   text="Select File", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+        file_btn.place(relx= .5, rely = .4, anchor = 'center')
+        units_btn = Button(self, 
+                                   text="Select Units", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+        units_btn.place(relx= .5, rely = .5, anchor = 'center')
+        graph_btn = Button(self, 
+                                   text="Graph it", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+        graph_btn.place(relx= .5, rely = .6, anchor = 'center')
+
+        title = Label(self,
+                                   text="Graph", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 72),
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+        title.place(relx= .5, rely = .2, anchor='center')
+
+        back_btn = Button(self, 
+                                   text="Back", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   command = lambda : controller.show_frame(Menu))
+        back_btn.place(relx= .1, rely = .05, anchor = 'center')
+
+        def temp():
+            return
+
 
 
         
