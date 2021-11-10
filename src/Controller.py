@@ -41,7 +41,14 @@ class Controller:
             elif out_c == "Decimal":
                 return Model.oct_2_dec(input)
 
+    def selectFile():
+        return Model.getFile()
 
-    
+    def selectUnits():
+        return Model.selectUnits()
+
+    def graphit():
+        return Model.graph()
+
     def convert():
         pass
