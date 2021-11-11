@@ -87,7 +87,9 @@ def cm_to_m(cm): return 100 / cm
 def cm_to_km(cm): return 100000 / cm
 def cm_to_mi(cm): return 
 
+
 def getFile():
+    
     file =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
     fileopen = open(file)
 
@@ -100,6 +102,8 @@ def getFile():
         rows.append(row)
 
     fileopen.close()
+
+    return os.path.basename(file)
 
 def selectUnits():
     global header
@@ -152,6 +156,7 @@ def selectUnits():
     submitButton.grid(row=2,columnspan=2)
 
 def graph():
+
     global variable1
     global variable2
 

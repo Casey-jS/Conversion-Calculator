@@ -4,6 +4,7 @@ from tkinter import font as f
 from tkinter import ttk
 from Controller import Controller
 
+
 #initialize default font
 font = ("Helvetica", 8)
 
@@ -36,7 +37,7 @@ class App(tk.Tk):
 #menu class of type Frame
 class Menu(tk.Frame):
     def __init__(self, parent, controller):
-        title_font = f.Font(family='Helvetica', size=16)
+        title_font = f.Font(family='Helvetica', size=32)
         
         # Make Menu
         tk.Frame.__init__(self, parent, 
@@ -177,7 +178,7 @@ class Graph(tk.Frame):
                                    width = 8,
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black',
-                                   command = lambda : Controller.selectFile())
+                                   command = lambda : [getFile(), units_btn.config(state=NORMAL)])
         file_btn.place(relx= .5, rely = .4, anchor = 'center')
         units_btn = Button(self, 
                                    text="Select Units", 
@@ -187,7 +188,8 @@ class Graph(tk.Frame):
                                    width = 8,
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black',
-                                   command = lambda : Controller.selectUnits())
+                                   state=DISABLED,
+                                   command = lambda : [Controller.selectUnits(), graph_btn.config(state=NORMAL)])
         units_btn.place(relx= .5, rely = .5, anchor = 'center')
         graph_btn = Button(self, 
                                    text="Graph it", 
@@ -197,6 +199,7 @@ class Graph(tk.Frame):
                                    width = 8,
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black',
+                                   state=DISABLED,
                                    command = lambda : Controller.graphit())
         graph_btn.place(relx= .5, rely = .6, anchor = 'center')
 
@@ -219,8 +222,16 @@ class Graph(tk.Frame):
                                    activeforeground = 'black',
                                    command = lambda : controller.show_frame(Menu))
         back_btn.place(relx= .1, rely = .05, anchor = 'center')
-             
 
+        def getFile():
+            file = Controller.selectFile()
+            updateFileLabel(file)
+
+        def updateFileLabel(file):
+            file_label = Label(self, text = "File Selected: " + str(file), bg='black')
+            file_label.place(relx=.5,rely=.7,anchor='center')
+
+            
 app = App()
 app.mainloop()
 
