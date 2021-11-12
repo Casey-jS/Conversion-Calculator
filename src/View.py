@@ -69,11 +69,14 @@ class Numbers(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
 
-        in_text = Label(self, text = "Input Type",  fg = 'deep sky blue', bg = 'black', font = ("Helvetica", 24))
+        label_font = ("Helvetica", 24)
+        blue = 'deep sky blue'
+
+        in_text = Label(self, text = "Input Type",  fg = 'deep sky blue', bg = 'black', font = label_font)
         in_text.place(rely = .05, relx = .3, anchor = 'center')
 
-        out_text = Label(self, text = "Output Type", fg = 'deep sky blue', bg ='black', font = ("Helvetica", 24))
-        out_text.place(rely = .05, relx = .7, anchor = 'center')
+        out_text = Label(self, text = "Output Type", fg = 'deep sky blue', bg ='black', font = label_font)
+        out_text.place(rely = .05, relx = .725, anchor = 'center')
 
         binary_button = Button(self, text = "Binary", command = lambda : in_button_clicked(binary_button, "Binary"))
         hex_button = Button(self, text = "Hex", command = lambda : in_button_clicked(hex_button, "Hex"))
@@ -106,7 +109,7 @@ class Numbers(tk.Frame):
                                    width = 8,
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black')
-            button.place(relx = .6, rely = start_height)
+            button.place(relx = .625, rely = start_height)
             start_height += .12
 
         input_choice = ""
@@ -114,11 +117,57 @@ class Numbers(tk.Frame):
 
         def in_button_clicked(button, choice):
             button.config(bg = 'deep sky blue', fg = 'black')
-            input_type = choice
+            input_choice = choice
+            in_reset_on_click(button)
+            print(input_choice)
         
         def out_button_clicked(button, choice):
             button.config(bg = 'deep sky blue', fg = 'black')
-            output_type = choice
+            output_choice = choice
+            out_reset_on_click(button)
+            print(output_choice)
+
+        def in_reset_on_click(chosen):
+            for button in (binary_button, hex_button, decimal_button, octal_button):
+                if button is not chosen:
+                    button.config(bg = 'black', fg = 'deep sky blue')
+        
+        def out_reset_on_click(chosen):
+            for button in (binary_button2, hex_button2, decimal_button2, octal_button2):
+                if button is not chosen:
+                    button.config(bg = 'black', fg = 'deep sky blue')
+
+        in_box = Entry(self, bg = 'black', fg = 'deep sky blue', font = ("Helvetica", 16), width = 8)
+        in_box.place(relx = .2, rely = .8, anchor = 'center')
+
+        out_box = Label(self, bg = 'black', fg = 'deep sky blue', font = ('Helvetica', 16), width = 8, text = "")
+        out_box.place(relx = .8, rely = .8, anchor = 'center')
+        
+        def convert():
+            input = in_box.get()
+            output = Controller.convert_num(input_choice, input, output_choice)
+            out_box.config(text = output)
+            print(output)
+
+        convert_button = Button(self,
+                                                 text = "Convert",
+                                                 fg = 'deep sky blue',
+                                                 bg = 'black',
+                                                 font = ("Helvetica", 16),
+                                                 width = 7,
+                                                 height = 1,
+                                                 activebackground = 'deep sky blue',
+                                                 activeforeground = 'black',
+                                                 command = lambda : convert())
+
+        convert_button.place(relx = .5, rely = .7, anchor = 'center')
+
+        
+
+        
+
+
+        
 
 
         

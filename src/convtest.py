@@ -1,6 +1,6 @@
 import unittest
 import Model
-from Controller import Controller
+from Controller import *
 
 class TestConversions(unittest.TestCase):
 
@@ -8,7 +8,7 @@ class TestConversions(unittest.TestCase):
         self.assertEqual(10000, Model.dec_to_bin(16), "Nope")
     
     def test_button(self):
-        correct = convert_num("Binary", 16, "Decimal")
+        correct = Controller.convert_num("Binary", 16, "Decimal")
         self.assertEqual(correct, 10000)
 
 if __name__ == '__main__':
