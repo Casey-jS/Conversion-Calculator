@@ -4,6 +4,7 @@ from tkinter import font as f
 from tkinter import ttk
 from Controller import Controller
 
+
 #initialize default font
 font = ("Helvetica", 8)
 
@@ -15,10 +16,12 @@ class App(tk.Tk):
         container.pack(side='top', fill='both', expand=True)
         self.geometry('600x400')
         self.title('Calculator++')
+        self.minsize(600,400)
+        self.maxsize(600,400)
        
         # initialize frames by stacking them on top of eachother
         self.frames = {}
-        for F in (Menu, Numbers):
+        for F in (Menu, Numbers, Graph, Units):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row = 0, column = 0, sticky = 'nsew')
@@ -34,7 +37,7 @@ class App(tk.Tk):
 #menu class of type Frame
 class Menu(tk.Frame):
     def __init__(self, parent, controller):
-        title_font = f.Font(family='Helvetica', size=16)
+        title_font = f.Font(family='Helvetica', size=32)
         
         # Make Menu
         tk.Frame.__init__(self, parent, 
@@ -55,8 +58,16 @@ class Menu(tk.Frame):
                                                              activebackground = 'deep sky blue',
                                                              fg = 'deep sky blue',
                                                              )
-        unit_button = Button(self, text="Unit Conversion")
-        graph_button = Button(self, text="Graphing")
+        unit_button = Button(self, text="Unit Conversion",
+                                                             command = lambda : controller.show_frame(Units), 
+                                                             activebackground = 'deep sky blue',
+                                                             fg = 'deep sky blue',
+                                                             )
+        graph_button = Button(self, text="Graphing",
+                                                             command = lambda : controller.show_frame(Graph),
+                                                             activebackground = 'deep sky blue',
+                                                             fg = 'deep sky blue',
+                                                             )
 
         menu_buttons(num_button, .1)
         menu_buttons(unit_button, .2)
@@ -115,6 +126,17 @@ class Numbers(tk.Frame):
         input_choice = ""
         output_choice = ""
 
+        back_btn = Button(self, 
+                                   text="Back", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   command = lambda : controller.show_frame(Menu))
+        back_btn.place(relx= .1, rely = .05, anchor = 'center')
+
         def in_button_clicked(button, choice):
             button.config(bg = 'deep sky blue', fg = 'black')
             input_choice = choice
@@ -170,14 +192,95 @@ class Numbers(tk.Frame):
         
 
 
+class Units(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width = 600, height = 400, bg="black")
+
+
+
+
+        back_btn = Button(self, 
+                                   text="Back", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   command = lambda : controller.show_frame(Menu))
+        back_btn.place(relx= .1, rely = .05, anchor = 'center')
+
+
+class Graph(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width = 600, height = 400, bg="black")
         
 
-        
-                                                
+        file_btn = Button(self, 
+                                   text="Select File", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   command = lambda : [getFile(), units_btn.config(state=NORMAL)])
+        file_btn.place(relx= .5, rely = .4, anchor = 'center')
+        units_btn = Button(self, 
+                                   text="Select Units", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   state=DISABLED,
+                                   command = lambda : [Controller.selectUnits(), graph_btn.config(state=NORMAL)])
+        units_btn.place(relx= .5, rely = .5, anchor = 'center')
+        graph_btn = Button(self, 
+                                   text="Graph it", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   state=DISABLED,
+                                   command = lambda : Controller.graphit())
+        graph_btn.place(relx= .5, rely = .6, anchor = 'center')
 
-        
+        title = Label(self,
+                                   text="Graph", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 72),
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black')
+        title.place(relx= .5, rely = .2, anchor='center')
 
+        back_btn = Button(self, 
+                                   text="Back", 
+                                   fg = 'deep sky blue',
+                                   bg = 'black',
+                                   font = ("Helvetica", 16),
+                                   width = 8,
+                                   activebackground = 'deep sky blue',
+                                   activeforeground = 'black',
+                                   command = lambda : controller.show_frame(Menu))
+        back_btn.place(relx= .1, rely = .05, anchor = 'center')
 
+        def getFile():
+            file = Controller.selectFile()
+            updateFileLabel(file)
+
+        def updateFileLabel(file):
+            file_label = Label(self, text = "File Selected: " + str(file), bg='black')
+            file_label.place(relx=.5,rely=.7,anchor='center')
+
+            
 app = App()
 app.mainloop()
 
