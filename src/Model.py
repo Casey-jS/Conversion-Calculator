@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import font as f
 from tkinter import ttk
 import os
+import matplotlib.pyplot as plt
 
 #Decimal Conversions
 #
@@ -96,10 +97,20 @@ def getFile():
     csvreader = csv.reader(fileopen)
 
     global header
-    header = next(csvreader)
-    rows = []
+    header = next(csvreader) 
+    length = len(header)
+
+    global vars
+    vars = {}
+
+    for i in range(length):
+        vars[i+1] = []
+
     for row in csvreader:
-        rows.append(row)
+        i=0
+        for item in row:
+             vars[i+1].append(item)
+             i+=1
 
     fileopen.close()
 
@@ -160,8 +171,11 @@ def graph():
     global variable1
     global variable2
 
-    print(variable1)
-    print(variable2)
+    index1 = header.index(variable1) + 1
+    index2 = header.index(variable2) + 1
+
+    plt.plot(vars[index1], vars[index2], 'ro')
+    plt.show()
 
 
 
