@@ -102,7 +102,7 @@ class Numbers(tk.Frame):
                                    **default_button,
                                    text = "Back",
                                    command = lambda : controller.show_frame(Menu))
-        back_btn.place(relx= .1, rely = .05, anchor = 'center')
+        back_btn.place(relx= .1, rely = .9, anchor = 'center')
 
         # create buttons
         binary_button = Button(self, text = "Binary", command = lambda : in_button_clicked(binary_button, "Binary"))
@@ -157,8 +157,8 @@ class Numbers(tk.Frame):
                 if button is not chosen:
                     button.config(bg = 'black', fg = blue)
 
-        in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 8)
-        in_box.place(relx = .2, rely = .8, anchor = 'center')
+        in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
+        in_box.place(relx = .29, rely = .7, anchor = 'center')
 
         out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 8, text = "Output")
         out_box.place(relx = .8, rely = .8, anchor = 'center')
@@ -166,9 +166,8 @@ class Numbers(tk.Frame):
         def convert():
             input = in_box.get()
             output = Controller.convert_num(Controller.in_c, input, Controller.out_c)
-            print(f"Input choice: {Controller.in_c}\ninput: {input}\nOutput Choice: {Controller.out_c}")
             out_box.config(text = output)
-            print(output)
+            
 
         convert_button = Button(self,
                                                  text = "Convert",
@@ -181,7 +180,7 @@ class Numbers(tk.Frame):
                                                  activeforeground = 'black',
                                                  command = lambda : convert())
 
-        convert_button.place(relx = .5, rely = .7, anchor = 'center')
+        convert_button.place(relx = .5, rely = .5, anchor = 'center')
 
         
 

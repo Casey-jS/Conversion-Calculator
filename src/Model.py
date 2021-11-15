@@ -6,36 +6,52 @@ import tkinter as tk
 from tkinter import font as f
 from tkinter import ttk
 import os
+import string
+
+error = "Invalid Entry"
+def is_hex(s): return all(c in string.hexdigits for c in s)
+def is_octal(s): return all(c in string.octdigits for c in s)
+def is_decimal(s): return all(c in string.digits for c in s)
+
+def is_binary(string):
+    p = set(string)
+    s = {'0', '1'}
+    if s == p or p == {'0'} or p == {'1'}:
+        return True
+    return False
+
 #import matplotlib.pyplot as plt
 
 #Decimal Conversions
 #
 #
 #decimal to binary
-def dec_to_bin(decimal):
-    return int(bin(decimal)[2:])
+
+
+#decimal to binary
+def dec_to_bin(decimal): # done
+    if is_decimal(decimal):
+        dec_int = int(decimal)
+        return bin(dec_int)[2:]
+    return error
 
 #decimal to hex
-def dec_to_hex(dec):
-    return hex(dec)[2:]
+def dec_to_hex(dec): # done
+    if is_decimal(dec): return hex(dec)[2:]
+    return error
 
 #decimal to octal
-def  dec_to_oct(dec):
-    return oct(dec)[2:]
+def  dec_to_oct(dec): # done
+    if is_decimal(dec): return oct(dec)[2:]
+    return error
 
 #Binary Conversions
 #
 #
 #binary to decimal
 def bin_to_dec(binary):
-    dec = 0
-    count = 0
-    while(binary != 0):
-        n = binary % 10
-        dec = dec + n * pow(2, count)
-        binary = binary // 10
-        count += 1
-    return dec
+    if is_binary(binary):
+        return 
 
 #binary to hexadecimal
 def bin_to_hex(bin):
@@ -51,19 +67,17 @@ def bin_to_oct(bin):
 #
 #
 #hexadecimal to decimal
-def hex_to_dec(hex):
-    dec = 0
+def hex_to_dec(hex): # done
+    if is_hex(hex): return int(hex, 16)
+    return error
 
-    for i, j in enumerate(hex):
-        hexList = "0123456789ABCDEF"
-        val = hexList.index(j)
-        power = (len(hex) - (i + 1))
-        dec = dec + (val*16**power)
-    return dec
+def hex_to_oct(hex): # done
+    if is_hex(hex): return oct(int(hex, 16))[2:]
+    return error
 
-def hex_to_oct(hex):
-    dec = int(hex, 10)
-    pass
+def hex_to_bin(hex): # done
+    if is_hex(hex): return bin(int(hex, 16))[2:]
+    return error
 
 #inches
 #cm
@@ -109,8 +123,8 @@ def getFile():
     for row in csvreader:
         i=0
         for item in row:
-             vars[i+1].append(item)
-             i+=1
+            vars[i+1].append(item)
+            i+=1
 
     fileopen.close()
 
@@ -174,8 +188,8 @@ def graph():
     index1 = header.index(variable1) + 1
     index2 = header.index(variable2) + 1
 
-   # plt.plot(vars[index1], vars[index2], 'ro')
-   # plt.show()
+# plt.plot(vars[index1], vars[index2], 'ro')
+# plt.show()
 
 
 
