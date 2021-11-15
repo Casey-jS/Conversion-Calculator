@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import font as f
 from tkinter import ttk
 import os
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 #Decimal Conversions
 #
@@ -174,8 +174,8 @@ def graph():
     index1 = header.index(variable1) + 1
     index2 = header.index(variable2) + 1
 
-   # plt.plot(vars[index1], vars[index2], 'ro')
-   # plt.show()
+    plt.plot(vars[index1], vars[index2], 'ro')
+    plt.show()
 
 
 

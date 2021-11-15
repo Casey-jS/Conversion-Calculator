@@ -217,6 +217,8 @@ class Graph(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
         
+        global file_label
+        file_label = Label(self)
 
         file_btn = Button(self, 
                                    text="Select File", 
@@ -276,8 +278,11 @@ class Graph(tk.Frame):
             updateFileLabel(file)
 
         def updateFileLabel(file):
+            global file_label
+            file_label.destroy()
             file_label = Label(self, text = "File Selected: " + str(file), bg='black')
             file_label.place(relx=.5,rely=.7,anchor='center')
+
 
             
 app = App()
