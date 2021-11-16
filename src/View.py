@@ -69,7 +69,6 @@ class Menu(tk.Frame):
         menu_buttons(unit_button, .2)
         menu_buttons(graph_button, .3)
 
-        
 class Numbers(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -78,15 +77,12 @@ class Numbers(tk.Frame):
 
         blue = 'deep sky blue'
         label_font = ("Helvetica", 24)
+        button_font = ("Helvetica", 16)
 
         default_label = {"fg" : blue, "bg" : "black", "font" : label_font}
 
         in_text = Label(self, text = "Input Type", **default_label)
-        in_text.place(relx = .3, rely = .05, anchor = 'center')
         out_text = Label(self, text = "Output Type", **default_label)
-        out_text.place(relx = .725, rely = .05, anchor = 'center')
-
-        button_font = ("Helvetica", 16)
 
         default_button = {"fg" : blue, 
                                       "bg" : 'black', 
@@ -95,13 +91,10 @@ class Numbers(tk.Frame):
                                       "activebackground" : blue,
                                       "width" : 8} 
         
-        input_choice = ""
-        output_choice = ""
+        back_btn = Button(self, **default_button, text = "Back", command = lambda : controller.show_frame(Menu))
 
-        back_btn = Button(self, 
-                                   **default_button,
-                                   text = "Back",
-                                   command = lambda : controller.show_frame(Menu))
+        in_text.place(relx = .3, rely = .05, anchor = 'center')
+        out_text.place(relx = .725, rely = .05, anchor = 'center')
         back_btn.place(relx= .1, rely = .9, anchor = 'center')
 
         # create buttons
@@ -116,46 +109,46 @@ class Numbers(tk.Frame):
         octal_button2 = Button(self, text = "Octal", command = lambda : out_button_clicked(octal_button2, "Octal")) 
         button_names = ["Binary", "Hex", "Decimal", "Octal"]
 
-        current_name = 0
+        """ start_height = .15
+        buttons = []
+        for name in button_names:
+            button = Button(self, text = name, command = lambda : in_button_clicked(button, name), **default_button)
+            button.place(relx = .2, rely = start_height)
+            buttons.append(button)
+            start_height += .12 """
+
+        
         # arrange input buttons                       
         start_height = .15
         for button in (binary_button, hex_button, decimal_button, octal_button):
             button.config(**default_button)
             button.place(relx = .2, rely = start_height)
-            current_name += 1
             start_height += .12
 
         # arrange output buttons
         start_height = .15
-        current_name = 0
+        
         for button in (binary_button2, hex_button2, decimal_button2, octal_button2):
-            print(button_names[current_name])
             button.config(**default_button)
             button.place(relx = .625, rely = start_height)
-            current_name += 1
             start_height += .12 # vertical distance between buttons
 
         
-        def in_button_clicked(button, choice):
-            button.config(bg = blue, fg = 'black')
-            Controller.in_c = choice
-            in_reset_on_click(button)
-            
-        
-        def out_button_clicked(button, choice):
-            button.config(bg = blue, fg = 'black')
-            Controller.out_c = choice
-            out_reset_on_click(button)
-
-        def in_reset_on_click(chosen):
+        def in_button_clicked(clicked_button, chosen):
+            clicked_button.config(bg = blue, fg = 'black')
+            Controller.in_c = chosen
             for button in (binary_button, hex_button, decimal_button, octal_button):
-                if button is not chosen:
-                    button.config(bg = 'black', fg = blue)
-        
-        def out_reset_on_click(chosen):
+                if button is not clicked_button:
+                    button.config(bg = "black", fg = blue)
+            
+        def out_button_clicked(clicked_button, chosen):
+            clicked_button.config(bg = blue, fg = 'black')
+            Controller.out_c = chosen
+            # reset button colors if a button is clicked
             for button in (binary_button2, hex_button2, decimal_button2, octal_button2):
-                if button is not chosen:
-                    button.config(bg = 'black', fg = blue)
+                if button is not clicked_button:
+                    button.config(bg = "black", fg = blue)
+            
 
         in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
         in_box.place(relx = .29, rely = .7, anchor = 'center')
@@ -195,18 +188,38 @@ class Units(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
 
+        blue = 'deep sky blue'
+        label_font = ("Helvetica", 16)
+
+        default_label = {"fg" : blue, "bg" : "black", "font" : label_font}
+
+        default_button = {"fg" : blue, "bg" : "black", "font" : label_font, "activeforeground" : "black", "activebackground" : blue, "width" : 8}
+
+        type_label = Label(self, text = "Unit Type", **default_label)
+        type_label.place(relx = .5, rely = .1, anchor = 'center')
+
+        unit_types = ["Length", "Mass", "Volume", "Speed"]
+        type_buttons = []
+
+        types = {"Length" : {"in", "ft", "mi", "yd",  "mm", "cm", "m", "km"}, 
+                       "Volume"  : {"mL", "L", "gal", "fl oz", "ft³", "in³", "cm³", "m³"},
+                       "Mass" : {"oz", "lb", "mg", "g", "kg"},
+                       "Speed" : {"mi/h", "km/h", "fps", "m/s", "knots"}}
+
+        startx = .2
+        for type in unit_types:
+            button = Button(self, text = type, **default_button)
+            button.place(relx = startx, rely = .2, anchor = 'center')
+            type_buttons.append(button)
+            startx+= .2
+        
+        def type_clicked(button_clicked):
+            pass
+
 
         
 
-        back_btn = Button(self, 
-                                   text="Back", 
-                                   fg = 'deep sky blue',
-                                   bg = 'black',
-                                   font = ("Helvetica", 16),
-                                   width = 8,
-                                   activebackground = 'deep sky blue',
-                                   activeforeground = 'black',
-                                   command = lambda : controller.show_frame(Menu))
+        back_btn = Button(self, **default_button, command = lambda : controller.show_frame(Menu), text = "Back")
         back_btn.place(relx= .1, rely = .05, anchor = 'center')
 
 
@@ -216,6 +229,8 @@ class Graph(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
         
+        global file_label
+        file_label = Label(self)
 
         file_btn = Button(self, 
                                    text="Select File", 
@@ -275,8 +290,11 @@ class Graph(tk.Frame):
             updateFileLabel(file)
 
         def updateFileLabel(file):
+            global file_label
+            file_label.destroy()
             file_label = Label(self, text = "File Selected: " + str(file), bg='black')
             file_label.place(relx=.5,rely=.7,anchor='center')
+
 
             
 app = App()

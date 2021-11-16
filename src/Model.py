@@ -7,12 +7,14 @@ from tkinter import font as f
 from tkinter import ttk
 import os
 import string
+#import matplotlib.pyplot as plt
 
 error = "Invalid Entry"
+
+# checks input string for valid type
 def is_hex(s): return all(c in string.hexdigits for c in s)
 def is_octal(s): return all(c in string.octdigits for c in s)
 def is_decimal(s): return all(c in string.digits for c in s)
-
 def is_binary(string):
     p = set(string)
     s = {'0', '1'}
@@ -20,63 +22,55 @@ def is_binary(string):
         return True
     return False
 
-#import matplotlib.pyplot as plt
-
-#Decimal Conversions
-#
-#
-#decimal to binary
 
 
-#decimal to binary
 def dec_to_bin(decimal): # done
     if is_decimal(decimal):
-        dec_int = int(decimal)
-        return bin(dec_int)[2:]
+        return str(bin(int(decimal)))[2:]
     return error
 
-#decimal to hex
 def dec_to_hex(dec): # done
-    if is_decimal(dec): return hex(dec)[2:]
+    if is_decimal(dec): return str(hex(dec))[2:]
     return error
 
-#decimal to octal
 def  dec_to_oct(dec): # done
-    if is_decimal(dec): return oct(dec)[2:]
+    if is_decimal(dec): return str(oct(dec))[2:]
     return error
 
-#Binary Conversions
-#
-#
-#binary to decimal
-def bin_to_dec(binary):
-    if is_binary(binary):
-        return 
+def bin_to_dec(binary): # done
+    if is_binary(binary): return str(int(binary, 2))
+    return error
 
-#binary to hexadecimal
-def bin_to_hex(bin):
-    dec = int(bin, 10)
-    return hex(dec)
+def bin_to_hex(bin): # done
+    if is_binary(bin): return str(hex(int(bin, 2)))[2:]
+    return error
 
-#binary to octal
 def bin_to_oct(bin):
-    dec = int(bin, 10)
-    return oct(dec)
+    if is_binary(bin): return str(oct(int(bin, 2)))[2:]
+    return error
 
-#Hex Conversions
-#
-#
-#hexadecimal to decimal
 def hex_to_dec(hex): # done
-    if is_hex(hex): return int(hex, 16)
+    if is_hex(hex): return str(int(hex, 16))
     return error
 
 def hex_to_oct(hex): # done
-    if is_hex(hex): return oct(int(hex, 16))[2:]
+    if is_hex(hex): return str(oct(int(hex, 16)))[2:]
     return error
 
 def hex_to_bin(hex): # done
-    if is_hex(hex): return bin(int(hex, 16))[2:]
+    if is_hex(hex): return str(bin(int(hex, 16)))[2:]
+    return error
+
+def oct_to_dec(octal): # done
+    if is_octal(octal): return str(int(octal, 8))
+    return error
+
+def oct_to_hex(octal): # done
+    if is_octal(octal): return str(hex(int(octal, 8)))[2:]
+    return error
+
+def oct_to_bin(octal): # done
+    if is_octal(octal): return str(bin(int(octal, 8)))[2:]
     return error
 
 #inches
@@ -87,20 +81,25 @@ def hex_to_bin(hex): # done
 #mi
 #ft
 
-
-def in_to_cm(inch): return 2.54 * inch
-def in_to_feet(inch): return 12 / inch
 def in_to_mm(inch): return 25.4 * inch
+def in_to_cm(inch): return 2.54 * inch
 def in_to_m(inch): return .254 * inch
 def in_to_km(inch): return .000254 * inch
+def in_to_feet(inch): return 12 / inch
+def in_to_yard(inch): return inch / 36
 def in_to_mi(inch): return inch / (5280 * 12)
 
 def cm_to_in(cm): return cm / 2.54
 def cm_to_feet(cm): return cm / 30.48
+def cm_to_yd(cm): return cm / (2.54 * 36)
 def cm_to_mm(cm): return 10 * cm
 def cm_to_m(cm): return 100 / cm
 def cm_to_km(cm): return 100000 / cm
-def cm_to_mi(cm): return 
+def cm_to_mi(cm): return cm * .000006
+
+def m_to_cm(m): return m * 10
+
+
 
 
 def getFile():
@@ -188,8 +187,8 @@ def graph():
     index1 = header.index(variable1) + 1
     index2 = header.index(variable2) + 1
 
-# plt.plot(vars[index1], vars[index2], 'ro')
-# plt.show()
+    plt.plot(vars[index1], vars[index2], 'ro')
+    plt.show()
 
 
 
