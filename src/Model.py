@@ -30,11 +30,11 @@ def dec_to_bin(decimal): # done
     return error
 
 def dec_to_hex(dec): # done
-    if is_decimal(dec): return str(hex(dec))[2:]
+    if is_decimal(dec): return str(hex(int(dec)))[2:]
     return error
 
 def  dec_to_oct(dec): # done
-    if is_decimal(dec): return str(oct(dec))[2:]
+    if is_decimal(dec): return str(oct(int(dec)))[2:]
     return error
 
 def bin_to_dec(binary): # done

@@ -150,11 +150,25 @@ class Numbers(tk.Frame):
                     button.config(bg = "black", fg = blue)
             
 
-        in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
-        in_box.place(relx = .29, rely = .7, anchor = 'center')
+        
 
-        out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 8, text = "Output")
-        out_box.place(relx = .8, rely = .8, anchor = 'center')
+        in_frame = Frame(self, bg = blue, width = 104, height = 35)
+        in_frame.place(relx = .285, rely = .7, anchor = 'center')
+
+        in_box = Entry(in_frame, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 8)
+        in_box.place(relx = .5, rely = .5, anchor = 'center')
+
+        in_label = Label(self, text = "Input", fg = blue, bg = 'black',font = ('Helvetica', 16))
+        in_label.place(relx = .28, rely = .8, anchor = 'center')
+
+        out_frame = Frame(self, bg = blue, width = 104, height = 35)
+        out_frame.place(relx = .71, rely = .7, anchor = 'center')
+
+        out_box = Label(out_frame, fg = blue, bg = "black", font = ("Helvetica", 16), width = 8)
+        out_box.place(relx = .5, rely = .5, anchor = 'center')
+
+        out_label = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 8, text = "Output")
+        out_label.place(relx = .71, rely = .8, anchor = 'center')
         
         def convert():
             input = in_box.get()
@@ -173,7 +187,7 @@ class Numbers(tk.Frame):
                                                  activeforeground = 'black',
                                                  command = lambda : convert())
 
-        convert_button.place(relx = .5, rely = .5, anchor = 'center')
+        convert_button.place(relx = .5, rely = .7, anchor = 'center')
 
         
 
