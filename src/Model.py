@@ -7,7 +7,7 @@ from tkinter import font as f
 from tkinter import ttk
 import os
 import string
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 error = "Invalid Entry"
 
