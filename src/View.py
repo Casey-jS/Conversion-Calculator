@@ -100,9 +100,9 @@ class Numbers(tk.Frame):
         
         back_btn = Button(self, **default_button, text = "Back", command = lambda : controller.show_frame(Menu))
 
-        in_text.place(relx = .3, rely = .05, anchor = 'center')
-        out_text.place(relx = .725, rely = .05, anchor = 'center')
-        back_btn.place(relx= .1, rely = .9, anchor = 'center')
+        in_text.place(relx = .3, rely = .15, anchor = 'center')
+        out_text.place(relx = .725, rely = .15, anchor = 'center')
+        back_btn.place(relx= .1, rely = .05, anchor = 'center')
 
         # create buttons
         binary_button = Button(self, text = "Binary", command = lambda : in_button_clicked(binary_button, "Binary"))
@@ -126,14 +126,14 @@ class Numbers(tk.Frame):
 
         
         # arrange input buttons                       
-        start_height = .15
+        start_height = .25
         for button in (binary_button, hex_button, decimal_button, octal_button):
             button.config(**default_button)
             button.place(relx = .2, rely = start_height)
             start_height += .12
 
         # arrange output buttons
-        start_height = .15
+        start_height = .25
         
         for button in (binary_button2, hex_button2, decimal_button2, octal_button2):
             button.config(**default_button)
@@ -158,10 +158,10 @@ class Numbers(tk.Frame):
             
 
         in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
-        in_box.place(relx = .29, rely = .7, anchor = 'center')
+        in_box.place(relx = .29, rely = .8, anchor = 'center')
 
-        out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 8, text = "Output")
-        out_box.place(relx = .8, rely = .8, anchor = 'center')
+        out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 12, text = "Output")
+        out_box.place(relx = .8, rely = .9, anchor = 'center')
         
         def convert():
             input = in_box.get()
@@ -180,14 +180,8 @@ class Numbers(tk.Frame):
                                                  activeforeground = 'black',
                                                  command = lambda : convert())
 
-        convert_button.place(relx = .5, rely = .5, anchor = 'center')
+        convert_button.place(relx = .5, rely = .6, anchor = 'center')
 
-        
-
-        
-
-
-        
 
 
 class Units(tk.Frame):
