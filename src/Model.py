@@ -135,9 +135,9 @@ def selectUnits():
 
     newWindow = tk.Toplevel()
     newWindow.title("Select Units")
-    newWindow.geometry('185x90')
-    newWindow.maxsize(185,90)
-    newWindow.minsize(185,90)
+    newWindow.geometry('210x90')
+    newWindow.maxsize(210,90)
+    newWindow.minsize(210,90)
     newWindow.config(bg='black')
 
     values1 = StringVar(newWindow)
@@ -154,11 +154,11 @@ def selectUnits():
     options1.grid(row=0,column=1)
     options2.grid(row=1,column=1)
 
-    Entry1 = Entry(newWindow, width = 7, justify="left", highlightbackground='black')
-    Entry1.insert(0,"Variable 1: " )
+    Entry1 = Entry(newWindow, width = 10, justify="left", highlightbackground='black')
+    Entry1.insert(0,"Variable 1 (X): " )
     Entry1.grid(row=0,column=0)
-    Entry2 = Entry(newWindow, width = 7, justify="left", highlightbackground='black')
-    Entry2.insert(0, "Variable 2: ")
+    Entry2 = Entry(newWindow, width = 10, justify="left", highlightbackground='black')
+    Entry2.insert(0, "Variable 2 (Y): ")
     Entry2.grid(row=1,column=0)
 
     def submit():
@@ -172,7 +172,7 @@ def selectUnits():
 
 
     submitButton = Button(newWindow, 
-        width = 16, 
+        width = 19, 
         height = 1, 
         highlightbackground="black",
         text="Submit", 
