@@ -189,9 +189,60 @@ def graph():
     index1 = header.index(variable1) + 1
     index2 = header.index(variable2) + 1
 
-    plt.plot(vars[index1], vars[index2], 'ro')
-    plt.show()
+    list1 = vars[index1]
+    list2 = vars[index2]
 
+
+    list1 = list(map(int, list1))
+    list2 = list(map(int, list2))
+
+    max1 = 0
+    max2 = 0
+    
+    min1 = list1[0]
+    min2 = list2[0]
+
+    for item in list1:
+        if item > max1:
+            max1 = item
+        if item < min1:
+            min1 = item
+
+    for item in list2:
+        if item > max2:
+            max2 = item
+        if item < min2:
+            min2 = item
+
+
+    # if(max1 < 20):
+    #     max1=max1+1
+    # elif(max1 < 100):
+    #     max1=max1+5
+    # elif(max1 > 100):
+    #     max1=max1+20
+    # elif(max1 > 1000):
+    #     max1=max1+50
+
+    if(max2 < 20):
+        max2=max2+1
+    elif(max2 < 100):
+        max2=max2+5
+    elif(max2 > 100):
+        max2=max2+20
+    elif(max2 > 1000):
+        max2=max2+50
+    
+    plt.figure("Graph")
+    plt.plot(list1, list2, '-bo')
+
+    plt.xlabel(str(variable1))
+    plt.ylabel(str(variable2))
+
+    plt.axis([min1,max1,0,max2])
+
+
+    plt.show()
 
 
 
