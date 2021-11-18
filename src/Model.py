@@ -33,7 +33,7 @@ def dec_to_hex(dec): # done
     if is_decimal(dec): return str(hex(int(dec)))[2:]
     return error
 
-def  dec_to_oct(dec): # done
+def dec_to_oct(dec): # done
     if is_decimal(dec): return str(oct(int(dec)))[2:]
     return error
 
@@ -101,7 +101,7 @@ def m_to_cm(m): return m * 10
 
 
 
-
+#Retrieves .csv file and reads it into a dictionary
 def getFile():
     
     file =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
@@ -129,6 +129,7 @@ def getFile():
 
     return os.path.basename(file)
 
+#Brings up Toplevel window to selected units
 def selectUnits():
     global header
     unitOptions = header
@@ -137,7 +138,7 @@ def selectUnits():
     newWindow.title("Select Units")
     newWindow.geometry('210x90')
     newWindow.maxsize(210,90)
-    newWindow.minsize(210,90)
+    newWindow.minsize(21,90)
     newWindow.config(bg='black')
 
     values1 = StringVar(newWindow)
@@ -179,6 +180,7 @@ def selectUnits():
         command=submit)
     submitButton.grid(row=2,columnspan=2)
 
+#Shows graph based of user input file and selected Units
 def graph():
 
     global variable1

@@ -34,7 +34,7 @@ class App(tk.Tk):
         frame = self.frames[cont]
         frame.tkraise()
 
-#menu class of type Frame
+#Menu class of type Frame
 class Menu(tk.Frame):
     def __init__(self, parent, controller):
         title_font = f.Font(family='Helvetica', size=32)
@@ -76,6 +76,7 @@ class Menu(tk.Frame):
         menu_buttons(unit_button, .2)
         menu_buttons(graph_button, .3)
 
+#Numbers class of type Frame
 class Numbers(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -182,8 +183,7 @@ class Numbers(tk.Frame):
 
         convert_button.place(relx = .5, rely = .6, anchor = 'center')
 
-
-
+#Units class of type Frame
 class Units(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -223,16 +223,18 @@ class Units(tk.Frame):
         back_btn = Button(self, **default_button, command = lambda : controller.show_frame(Menu), text = "Back")
         back_btn.place(relx= .1, rely = .05, anchor = 'center')
 
-
+#Graph class of type Frame
 class Graph(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(width = 600, height = 400, bg="black")
         
+        #Creates File Selected label
         global file_label
         file_label = Label(self)
 
+        #Creates Select File Button
         file_btn = Button(self, 
                                    text="Select File", 
                                    fg = 'deep sky blue',
@@ -242,7 +244,11 @@ class Graph(tk.Frame):
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black',
                                    command = lambda : [getFile(), units_btn.config(state=NORMAL)])
+
+        #Places Select File Button
         file_btn.place(relx= .5, rely = .4, anchor = 'center')
+
+        #Creates Selected Units Button
         units_btn = Button(self, 
                                    text="Select Units", 
                                    fg = 'deep sky blue',
@@ -254,6 +260,8 @@ class Graph(tk.Frame):
                                    state=DISABLED,
                                    command = lambda : [Controller.selectUnits(), graph_btn.config(state=NORMAL)])
         units_btn.place(relx= .5, rely = .5, anchor = 'center')
+
+        #Places Select Units Button
         graph_btn = Button(self, 
                                    text="Graph it", 
                                    fg = 'deep sky blue',
@@ -266,6 +274,7 @@ class Graph(tk.Frame):
                                    command = lambda : Controller.graphit())
         graph_btn.place(relx= .5, rely = .6, anchor = 'center')
 
+        #Creates Title Label
         title = Label(self,
                                    text="Graph", 
                                    fg = 'deep sky blue',
@@ -273,8 +282,11 @@ class Graph(tk.Frame):
                                    font = ("Helvetica", 72),
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black')
+
+        #Places Title Label
         title.place(relx= .5, rely = .2, anchor='center')
 
+        #Creates Back Button
         back_btn = Button(self, 
                                    text="Back", 
                                    fg = 'deep sky blue',
@@ -284,12 +296,16 @@ class Graph(tk.Frame):
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black',
                                    command = lambda : controller.show_frame(Menu))
+
+        #Places Back Button
         back_btn.place(relx= .1, rely = .05, anchor = 'center')
 
+        #Talks to Controller to get file
         def getFile():
             file = Controller.selectFile()
             updateFileLabel(file)
 
+        #Updates the File Selected Label
         def updateFileLabel(file):
             global file_label
             file_label.destroy()

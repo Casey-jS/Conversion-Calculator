@@ -31,12 +31,15 @@ class Controller:
             elif out_c == "Hex": return Model.oct_to_hex(input)
             elif out_c == "Decimal": return Model.oct_to_dec(input)
 
+    #Talks to Model to select File
     def selectFile():
         return Model.getFile()
 
+    #Talks to Model to select units
     def selectUnits():
         return Model.selectUnits()
 
+    #Talks to Model to graph
     def graphit():
         return Model.graph()
 
