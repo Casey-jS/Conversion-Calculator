@@ -10,6 +10,8 @@ import string
 import matplotlib.pyplot as plt
 
 error = "Invalid Entry"
+global graph_option
+graph_option = 1
 
 # checks input string for valid type
 def is_hex(s): return all(c in string.hexdigits for c in s)
@@ -134,115 +136,254 @@ def selectUnits():
     global header
     unitOptions = header
 
-    newWindow = tk.Toplevel()
-    newWindow.title("Select Units")
-    newWindow.geometry('210x90')
-    newWindow.maxsize(210,90)
-    newWindow.minsize(21,90)
-    newWindow.config(bg='black')
+    def getGraph():
+        newWindow = tk.Toplevel()
+        newWindow.title("Select Graph")
+        newWindow.geometry('210x100')
+        newWindow.maxsize(210,105)
+        newWindow.minsize(210,105)
+        newWindow.config(bg='black')
 
-    values1 = StringVar(newWindow)
-    values2 = StringVar(newWindow)
+        global graph_option
 
-    values1.set(header[0])
-    values2.set(header[0])
+        option = IntVar()
+        option.set("1")
+        value=1
 
-    options1 = OptionMenu(newWindow, values1, *unitOptions)
-    options1.config(width=6, bg="black")
-    options2 = OptionMenu(newWindow, values2, *unitOptions)
-    options2.config(width=6, bg="black")
+        def clicked(option):
+            global graph_option
+            graph_option = option
 
-    options1.grid(row=0,column=1)
-    options2.grid(row=1,column=1)
-
-    Entry1 = Entry(newWindow, width = 10, justify="left", highlightbackground='black')
-    Entry1.insert(0,"Variable 1 (X): " )
-    Entry1.grid(row=0,column=0)
-    Entry2 = Entry(newWindow, width = 10, justify="left", highlightbackground='black')
-    Entry2.insert(0, "Variable 2 (Y): ")
-    Entry2.grid(row=1,column=0)
-
-    def submit():
-        global variable1
-        global variable2
-
-        variable1 = values1.get()
-        variable2 = values2.get()
-
-        newWindow.destroy()
+        def submit(option):
+            newWindow.destroy()
+            getUnits()
 
 
-    submitButton = Button(newWindow, 
-        width = 19, 
-        height = 1, 
-        highlightbackground="black",
-        text="Submit", 
-        command=submit)
-    submitButton.grid(row=2,columnspan=2)
+        option1 = Radiobutton(newWindow, text="2 Variable Graph", variable=option, value=1, command=lambda: clicked(option.get()), background="black")
+        option1.pack()
+
+        option2 = Radiobutton(newWindow, text="Multi-Variable Graph", variable=option, value=2, command=lambda: clicked(option.get()), background="black")
+        option2.pack()
+        
+        option3 = Radiobutton(newWindow, text="Histogram",variable=option, value=3, command=lambda: clicked(option.get()), background="black")
+        option3.pack()
+
+        submit_btn = Button(newWindow, text = "Submit", command= lambda: submit(value), highlightbackground="black", width=12)
+        submit_btn.pack()
+
+    def getUnits():
+        if graph_option == 1:
+
+            newWindow = tk.Toplevel()
+            newWindow.title("Select Units")
+            newWindow.geometry('210x90')
+            newWindow.maxsize(207,80)
+            newWindow.minsize(207,80)
+            newWindow.config(bg='black')
+
+            values1 = StringVar(newWindow)
+            values2 = StringVar(newWindow)
+
+            values1.set(header[0])
+            values2.set(header[0])
+
+            options1 = OptionMenu(newWindow, values1, *unitOptions)
+            options1.config(width=6, bg="black")
+            options2 = OptionMenu(newWindow, values2, *unitOptions)
+            options2.config(width=6, bg="black")
+
+            options1.grid(row=0,column=1)
+            options2.grid(row=1,column=1)
+
+            Entry1 = Label(newWindow, width = 10, justify="left", text="Variable 1 (X): ", background="black")
+            Entry1.grid(row=0,column=0)
+            Entry2 = Label(newWindow, width = 10, justify="left", text="Variable 2 (Y): ", background="black")
+            Entry2.grid(row=1,column=0)
+
+            def submit():
+                global variable1
+                global variable2
+
+                variable1 = values1.get()
+                variable2 = values2.get()
+
+                newWindow.destroy()
+
+
+            submitButton = Button(newWindow, 
+                width = 19, 
+                height = 1, 
+                highlightbackground="black",
+                text="Submit", 
+                command=submit)
+            submitButton.grid(row=2,columnspan=2)
+
+
+        if graph_option == 2:
+
+            newWindow = tk.Toplevel()
+            newWindow.title("Select Units")
+            newWindow.geometry('210x90')
+            newWindow.maxsize(207,80)
+            newWindow.minsize(207,80)
+            newWindow.config(bg='black')
+
+            values1 = StringVar(newWindow)
+            values2 = StringVar(newWindow)
+
+            values1.set(header[0])
+            values2.set(header[0])
+
+            options1 = OptionMenu(newWindow, values1, *unitOptions)
+            options1.config(width=6, bg="black")
+            options2 = OptionMenu(newWindow, values2, *unitOptions)
+            options2.config(width=6, bg="black")
+
+            options1.grid(row=0,column=1)
+            options2.grid(row=1,column=1)
+
+            Entry1 = Label(newWindow, width = 10, justify="left", text="Variable 1 (X): ", background="black")
+            Entry1.grid(row=0,column=0)
+            Entry2 = Label(newWindow, width = 10, justify="left", text="Variable 2 (Y): ", background="black")
+            Entry2.grid(row=1,column=0)
+
+            def submit():
+                global variable1
+                global variable2
+
+                variable1 = values1.get()
+                variable2 = values2.get()
+
+                newWindow.destroy()
+
+
+            submitButton = Button(newWindow, 
+                width = 19, 
+                height = 1, 
+                highlightbackground="black",
+                text="Submit", 
+                command=submit)
+            submitButton.grid(row=2,columnspan=2)
+
+
+        if graph_option ==3:
+
+
+            newWindow = tk.Toplevel()
+            newWindow.title("Select Units")
+            newWindow.geometry('210x90')
+            newWindow.maxsize(207,80)
+            newWindow.minsize(207,80)
+            newWindow.config(bg='black')
+
+            values1 = StringVar(newWindow)
+            values2 = StringVar(newWindow)
+
+            values1.set(header[0])
+            values2.set(header[0])
+
+            options1 = OptionMenu(newWindow, values1, *unitOptions)
+            options1.config(width=6, bg="black")
+            options2 = OptionMenu(newWindow, values2, *unitOptions)
+            options2.config(width=6, bg="black")
+
+            options1.grid(row=0,column=1)
+            options2.grid(row=1,column=1)
+
+            Entry1 = Label(newWindow, width = 10, justify="left", text="Variable 1 (X): ", background="black")
+            Entry1.grid(row=0,column=0)
+            Entry2 = Label(newWindow, width = 10, justify="left", text="Variable 2 (Y): ", background="black")
+            Entry2.grid(row=1,column=0)
+
+            def submit():
+                global variable1
+                global variable2
+
+                variable1 = values1.get()
+                variable2 = values2.get()
+
+                newWindow.destroy()
+
+
+            submitButton = Button(newWindow, 
+                width = 19, 
+                height = 1, 
+                highlightbackground="black",
+                text="Submit", 
+                command=submit)
+            submitButton.grid(row=2,columnspan=2)
+            
+    getGraph()
 
 #Shows graph based of user input file and selected Units
 def graph():
 
     global variable1
     global variable2
-
-    index1 = header.index(variable1) + 1
-    index2 = header.index(variable2) + 1
-
-    list1 = vars[index1]
-    list2 = vars[index2]
+    global graph_option
 
 
-    list1 = list(map(int, list1))
-    list2 = list(map(int, list2))
+    def graph_1():
+        index1 = header.index(variable1) + 1
+        index2 = header.index(variable2) + 1
 
-    max1 = 0
-    max2 = 0
-    
-    min1 = list1[0]
-    min2 = list2[0]
-
-    for item in list1:
-        if item > max1:
-            max1 = item
-        if item < min1:
-            min1 = item
-
-    for item in list2:
-        if item > max2:
-            max2 = item
-        if item < min2:
-            min2 = item
+        list1 = vars[index1]
+        list2 = vars[index2]
 
 
-    # if(max1 < 20):
-    #     max1=max1+1
-    # elif(max1 < 100):
-    #     max1=max1+5
-    # elif(max1 > 100):
-    #     max1=max1+20
-    # elif(max1 > 1000):
-    #     max1=max1+50
+        list1 = list(map(int, list1))
+        list2 = list(map(int, list2))
 
-    if(max2 < 20):
-        max2=max2+1
-    elif(max2 < 100):
-        max2=max2+5
-    elif(max2 > 100):
-        max2=max2+20
-    elif(max2 > 1000):
-        max2=max2+50
-    
-    plt.figure("Graph")
-    plt.plot(list1, list2, '-bo')
+        max1 = 0
+        max2 = 0
+        
+        min1 = list1[0]
+        min2 = list2[0]
 
-    plt.xlabel(str(variable1))
-    plt.ylabel(str(variable2))
+        for item in list1:
+            if item > max1:
+                max1 = item
+            if item < min1:
+                min1 = item
 
-    plt.axis([min1,max1,0,max2])
+        for item in list2:
+            if item > max2:
+                max2 = item
+            if item < min2:
+                min2 = item
+
+        if(max2 < 20):
+            max2=max2+1
+        elif(max2 < 100):
+            max2=max2+5
+        elif(max2 > 100):
+            max2=max2+20
+        elif(max2 > 1000):
+            max2=max2+50
+        
+        plt.figure("Graph")
+        plt.plot(list1, list2, '-bo')
+
+        plt.xlabel(str(variable1))
+        plt.ylabel(str(variable2))
+
+        plt.axis([min1,max1,0,max2])
 
 
-    plt.show()
+        plt.show()
+
+    def graph_2():
+        print("Option 2")
+
+    def graph_3():
+        print("Option 3")
+
+    if graph_option == 1:
+        graph_1()
+    elif graph_option == 2:
+        graph_2()
+    elif graph_option == 3:
+        graph_3()
 
 
 
