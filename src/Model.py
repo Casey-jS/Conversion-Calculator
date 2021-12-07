@@ -75,6 +75,9 @@ def oct_to_bin(octal): # done
     if is_octal(octal): return str(bin(int(octal, 8)))[2:]
     return error
 
+def same_unit(input):
+    return input
+
 #inches
 #cm
 #mm

@@ -111,10 +111,10 @@ class Numbers(tk.Frame):
         decimal_button = Button(self, text = "Decimal", command = lambda : in_button_clicked(decimal_button, "Decimal"))
         octal_button = Button(self, text = "Octal", command = lambda : in_button_clicked(octal_button, "Octal"))
 
-        binary_button2 = Button(self, text = "Binary", command = lambda : out_button_clicked(binary_button2, "Binary"))
-        hex_button2 = Button(self, text = "Hex", command = lambda : out_button_clicked(hex_button2, "Hex"))
-        decimal_button2 = Button(self, text = "Decimal", command = lambda : out_button_clicked(decimal_button2, "Decimal"))
-        octal_button2 = Button(self, text = "Octal", command = lambda : out_button_clicked(octal_button2, "Octal")) 
+        binary_button2 = Button(self, text = "Binary", command = lambda : [out_button_clicked(binary_button2, "Binary"), convert()])
+        hex_button2 = Button(self, text = "Hex", command = lambda : [out_button_clicked(hex_button2, "Hex"), convert()])
+        decimal_button2 = Button(self, text = "Decimal", command = lambda : [out_button_clicked(decimal_button2, "Decimal"), convert()])
+        octal_button2 = Button(self, text = "Octal", command = lambda : [out_button_clicked(octal_button2, "Octal"), convert()]) 
         button_names = ["Binary", "Hex", "Decimal", "Octal"]
 
         """ start_height = .15
@@ -168,20 +168,7 @@ class Numbers(tk.Frame):
             input = in_box.get()
             output = Controller.convert_num(Controller.in_c, input, Controller.out_c)
             out_box.config(text = output)
-            
-
-        convert_button = Button(self,
-                                                 text = "Convert",
-                                                 fg = blue,
-                                                 bg = 'black',
-                                                 font = ("Helvetica", 16),
-                                                 width = 7,
-                                                 height = 1,
-                                                 activebackground = blue,
-                                                 activeforeground = 'black',
-                                                 command = lambda : convert())
-
-        convert_button.place(relx = .5, rely = .6, anchor = 'center')
+        
 
 #Units class of type Frame
 class Units(tk.Frame):
