@@ -161,14 +161,16 @@ class Numbers(tk.Frame):
         in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
         in_box.place(relx = .29, rely = .8, anchor = 'center')
 
-        out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 12, text = "Output")
-        out_box.place(relx = .8, rely = .8, anchor = 'center')
+        out_label = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 12, text = "Output:")
+        out_label.place(relx = .7, rely = .8, anchor = 'center')
+
+        out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 14, anchor = 'w')
+        out_box.place(relx = .85, rely = .8, anchor = 'center')
         
         def convert():
             input = in_box.get()
             output = Controller.convert_num(Controller.in_c, input, Controller.out_c)
             out_box.config(text = output)
-        
 
 #Units class of type Frame
 class Units(tk.Frame):
