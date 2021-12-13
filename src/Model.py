@@ -86,23 +86,64 @@ def same_unit(input):
 #mi
 #ft
 
-def in_to_mm(inch): return 25.4 * inch
+#inches
 def in_to_cm(inch): return 2.54 * inch
 def in_to_m(inch): return .254 * inch
 def in_to_km(inch): return .000254 * inch
-def in_to_feet(inch): return 12 / inch
-def in_to_yard(inch): return inch / 36
-def in_to_mi(inch): return inch / (5280 * 12)
+def in_to_feet(inch): return inch / 12
+def in_to_yard(inch): return inch / 36.0
+def in_to_mi(inch): return inch / 63360
 
+#feet
+def feet_to_in(feet): return feet * 12.0
+def feet_to_yards(feet): return feet / 3.0
+def feet_to_mi(feet): return feet / 5280.0
+def feet_to_cm(feet): return feet * 30.48
+def feet_to_m(feet): return  feet / 3.281
+def feet_to_km(feet): return feet / 3281.0
+
+#yards
+def yards_to_inches(yards): return yards * 36.0
+def yards_to_mi(yards): return yards * 1760
+def yards_to_cm(yards): return yards * 91.44
+def yards_to_m(yards): return yards / 1.094
+def yards_to_km(yards): return yards / 1094.0
+def yards_to_feet(yards): return yards / 3.0
+
+#miles
+def mi_to_inches(miles): return miles * 63360.0
+def mi_to_feet(miles): return miles * 5280.0
+def mi_to_yards(miles): return miles * 1760.0
+def mi_to_cm(miles): return miles * 160934
+def mi_to_m(miles): return miles * 1609.0
+def mi_to_km(miles): return miles * 1.609
+
+#centimeter
 def cm_to_in(cm): return cm / 2.54
 def cm_to_feet(cm): return cm / 30.48
-def cm_to_yd(cm): return cm / (2.54 * 36)
-def cm_to_mm(cm): return 10 * cm
-def cm_to_m(cm): return 100 / cm
-def cm_to_km(cm): return 100000 / cm
+def cm_to_yd(cm): return cm / (2.54 * 36.0)
+def cm_to_m(cm): return 100.0 / cm
+def cm_to_km(cm): return 100000.0 / cm
 def cm_to_mi(cm): return cm * .000006
 
-def m_to_cm(m): return m * 10
+#meter
+def m_to_in(m): return m * 39.37
+def m_to_feet(m): return m * 3.281
+def m_to_yards(m): return m * 1.094
+def m_to_miles(m): return m / 1609.0
+def m_to_cm(m): return m * 100
+def m_to_km(m): return m / 1000
+
+#kilometer
+def km_to_in(km): return km * 39370.0
+def km_to_feet(km): return km * 3281.0
+def km_to_yards(km): return km * 1094.0
+def km_to_mi(km): return km / 1.609
+def km_to_cm(km): return km * 100000.0
+def km_to_m(km): return km * 1000
+
+
+def same_length_unit(input): return input
 
 
 
@@ -134,7 +175,7 @@ def getFile():
 
     return os.path.basename(file)
 
-#Brings up Toplevel window to selected units
+#Brings up Toplevel window to choose graph and units
 def selectUnits():
     global header
     unitOptions = header

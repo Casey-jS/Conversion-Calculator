@@ -21,7 +21,7 @@ class App(tk.Tk):
        
         # initialize frames by stacking them on top of eachother
         self.frames = {}
-        for F in (Menu, Numbers, Graph, Units):
+        for F in (Menu, Numbers, Graph, Units, Length):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row = 0, column = 0, sticky = 'nsew')
@@ -60,7 +60,7 @@ class Menu(tk.Frame):
                                    width = 14,
                                    activebackground = 'deep sky blue',
                                    activeforeground = 'black')
-            b.place(relx=.5, rely=.5 + h, anchor='center')
+            b.place(relx=.5, rely=.3 + h, anchor='center')
         
         num_button = Button(self, text="Number Conversion", 
                                                              command = lambda : controller.show_frame(Numbers), 
@@ -116,15 +116,6 @@ class Numbers(tk.Frame):
         decimal_button2 = Button(self, text = "Decimal", command = lambda : [out_button_clicked(decimal_button2, "Decimal"), convert()])
         octal_button2 = Button(self, text = "Octal", command = lambda : [out_button_clicked(octal_button2, "Octal"), convert()]) 
         button_names = ["Binary", "Hex", "Decimal", "Octal"]
-
-        """ start_height = .15
-        buttons = []
-        for name in button_names:
-            button = Button(self, text = name, command = lambda : in_button_clicked(button, name), **default_button)
-            button.place(relx = .2, rely = start_height)
-            buttons.append(button)
-            start_height += .12 """
-
         
         # arrange input buttons                       
         start_height = .25
@@ -180,37 +171,111 @@ class Units(tk.Frame):
 
         blue = 'deep sky blue'
         label_font = ("Helvetica", 16)
+        label_font2 = ("Helvetica", 30)
 
-        default_label = {"fg" : blue, "bg" : "black", "font" : label_font}
+        default_label2 = {"fg" : blue, "bg" : "black", "font" : label_font2}
 
         default_button = {"fg" : blue, "bg" : "black", "font" : label_font, "activeforeground" : "black", "activebackground" : blue, "width" : 8}
 
-        type_label = Label(self, text = "Unit Type", **default_label)
-        type_label.place(relx = .5, rely = .1, anchor = 'center')
+        type_label = Label(self, text = "Unit Conversion", **default_label2)
+        type_label.place(relx = .5, rely = .3, anchor = 'center')
 
-        unit_types = ["Length", "Mass", "Volume", "Speed"]
-        type_buttons = []
+        length_button = Button(self, text="Length", **default_button, command = lambda : controller.show_frame(Length))
+        length_button.place(relx = .5, rely = .5, anchor='center')
 
-        types = {"Length" : {"in", "ft", "mi", "yd",  "mm", "cm", "m", "km"}, 
-                       "Volume"  : {"mL", "L", "gal", "fl oz", "ft³", "in³", "cm³", "m³"},
-                       "Mass" : {"oz", "lb", "mg", "g", "kg"},
-                       "Speed" : {"mi/h", "km/h", "fps", "m/s", "knots"}}
+        # mass_button = Button(self, text="Mass", **default_button, command = lambda : controller.show_frame(Length))
+        # mass_button.place(relx = .5, rely = .4, anchor='center')
 
-        startx = .2
-        for type in unit_types:
-            button = Button(self, text = type, **default_button)
-            button.place(relx = startx, rely = .2, anchor = 'center')
-            type_buttons.append(button)
-            startx+= .2
-        
-        def type_clicked(button_clicked):
-            pass
+        # volume_button = Button(self, text="Volume", **default_button, command = lambda : controller.show_frame(Length))
+        # volume_button.place(relx = .5, rely = .55, anchor='center')
 
-
-        
+        # speed_button = Button(self, text="Speed", **default_button, command = lambda : controller.show_frame(Length))
+        # speed_button.place(relx = .5, rely = .7, anchor='center')
 
         back_btn = Button(self, **default_button, command = lambda : controller.show_frame(Menu), text = "Back")
         back_btn.place(relx= .1, rely = .05, anchor = 'center')
+
+#Length class
+class Length(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.config(width = 600, height = 400, bg="black")
+
+        blue = 'deep sky blue'
+        label_font = ("Helvetica", 16)
+        label_font2 = ("Helvetica", 30)
+
+        default_label = {"fg" : blue, "bg" : "black", "font" : label_font2}
+
+        default_button = {"fg" : blue, "bg" : "black", "font" : label_font, "activeforeground" : "black", "activebackground" : blue, "width" : 8}
+
+        type_label = Label(self, text = "Length", **default_label)
+        type_label.place(relx = .5, rely = .1, anchor = 'center')
+
+        # create buttons
+        inch_button = Button(self, text = "Inch", command = lambda : in_button_clicked(inch_button, "Inch"))
+        feet_button = Button(self, text = "Feet", command = lambda : in_button_clicked(feet_button, "Feet"))
+        yard_button = Button(self, text = "Yards", command = lambda : in_button_clicked(yard_button, "Yards"))
+        mi_button = Button(self, text = "Miles", command = lambda : in_button_clicked(mi_button, "Miles"))
+        cm_button = Button(self, text = "Centimeter", command = lambda : in_button_clicked(cm_button, "Centimeter"))
+        meter_button = Button(self, text = "Meter", command = lambda : in_button_clicked(meter_button, "Meter"))
+        km_button = Button(self, text = "Kilometer", command = lambda : in_button_clicked(km_button, "Kilometer"))
+
+        inch_button2 = Button(self, text = "Inch", command = lambda : [out_button_clicked(inch_button2, "Inch"), convert()])
+        feet_button2 = Button(self, text = "Feet", command = lambda : [out_button_clicked(feet_button2, "Feet"), convert()])
+        yard_button2 = Button(self, text = "Yards", command = lambda : [out_button_clicked(yard_button2, "Yards"), convert()])
+        mi_button2 = Button(self, text = "Miles", command = lambda : [out_button_clicked(mi_button2, "Miles"), convert()])
+        cm_button2 = Button(self, text = "Centimeter", command = lambda : [out_button_clicked(cm_button2, "Centimeter"), convert()])
+        meter_button2 = Button(self, text = "Meter", command = lambda : [out_button_clicked(meter_button2, "Meter"), convert()])
+        km_button2 = Button(self, text = "Kilometer", command = lambda : [out_button_clicked(km_button2, "Kilometer"), convert()])
+
+        button_names = ["Inch", "Feet", "Yards", "Miles", "Centimeter", "Meter", "Kilometer"]
+        
+        # arrange input buttons                       
+        start_height = .18
+        for button in (inch_button, feet_button, yard_button, mi_button, cm_button, meter_button, km_button):
+            button.config(**default_button)
+            button.place(relx = .2, rely = start_height)
+            start_height += .1
+
+        # arrange output buttons
+        start_height = .18
+        for button in (inch_button2, feet_button2, yard_button2, mi_button2, cm_button2, meter_button2, km_button2):
+            button.config(**default_button)
+            button.place(relx = .625, rely = start_height)
+            start_height += .1 # vertical distance between buttons
+
+        def in_button_clicked(clicked_button, chosen):
+            clicked_button.config(bg = blue, fg = 'black')
+            Controller.in_l = chosen
+            for button in (inch_button, feet_button, yard_button, mi_button, cm_button, meter_button, km_button):
+                if button is not clicked_button:
+                    button.config(bg = "black", fg = blue)
+            
+        def out_button_clicked(clicked_button, chosen):
+            clicked_button.config(bg = blue, fg = 'black')
+            Controller.out_l = chosen
+            # reset button colors if a button is clicked
+            for button in (inch_button2, feet_button2, yard_button2, mi_button2, cm_button2, meter_button2, km_button2):
+                if button is not clicked_button:
+                    button.config(bg = "black", fg = blue)
+
+        in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
+        in_box.place(relx = .5, rely = .45, anchor = 'center')
+
+        out_box = Label(self, bg = 'black', fg = blue, font = ('Helvetica', 16), width = 14)
+        out_box.place(relx = .5, rely = .55, anchor = 'center')
+        
+        def convert():
+            input = in_box.get()
+            output = Controller.convert_length(Controller.in_l, input, Controller.out_l)
+            output = round(output, 4)
+            out_box.config(text = output)
+
+
+        back_btn = Button(self, **default_button, command = lambda : controller.show_frame(Units), text = "Back")
+        back_btn.place(relx= .1, rely = .05, anchor = 'center')
+
 
 #Graph class of type Frame
 class Graph(tk.Frame):
