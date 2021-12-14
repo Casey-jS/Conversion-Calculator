@@ -26,24 +26,24 @@ def is_binary(string):
 
 
 
-def dec_to_bin(decimal): # done
+def dec_to_bin(decimal): 
     if is_decimal(decimal):
         return str(bin(int(decimal)))[2:]
     return error
 
-def dec_to_hex(dec): # done
+def dec_to_hex(dec): 
     if is_decimal(dec): return str(hex(int(dec)))[2:]
     return error
 
-def dec_to_oct(dec): # done
+def dec_to_oct(dec): 
     if is_decimal(dec): return str(oct(int(dec)))[2:]
     return error
 
-def bin_to_dec(binary): # done
+def bin_to_dec(binary):
     if is_binary(binary): return str(int(binary, 2))
     return error
 
-def bin_to_hex(bin): # done
+def bin_to_hex(bin): 
     if is_binary(bin): return str(hex(int(bin, 2)))[2:]
     return error
 
@@ -51,45 +51,52 @@ def bin_to_oct(bin):
     if is_binary(bin): return str(oct(int(bin, 2)))[2:]
     return error
 
-def hex_to_dec(hex): # done
+def hex_to_dec(hex): 
     if is_hex(hex): return str(int(hex, 16))
     return error
 
-def hex_to_oct(hex): # done
+def hex_to_oct(hex): 
     if is_hex(hex): return str(oct(int(hex, 16)))[2:]
     return error
 
-def hex_to_bin(hex): # done
+def hex_to_bin(hex): 
     if is_hex(hex): return str(bin(int(hex, 16)))[2:]
     return error
 
-def oct_to_dec(octal): # done
+def oct_to_dec(octal):
     if is_octal(octal): return str(int(octal, 8))
     return error
 
-def oct_to_hex(octal): # done
+def oct_to_hex(octal): 
     if is_octal(octal): return str(hex(int(octal, 8)))[2:]
     return error
 
-def oct_to_bin(octal): # done
+def oct_to_bin(octal): 
     if is_octal(octal): return str(bin(int(octal, 8)))[2:]
     return error
 
-def same_unit(input):
-    return input
+def same_unit_binary(input):
+    if is_binary(input): return input
+    return error
 
-#inches
-#cm
-#mm
-#m
-#km
-#mi
-#ft
+def same_unit_decimal(input):
+    if is_decimal(input): return input
+    return error
+
+def same_unit_hex(input):
+    if is_hex(input): return input
+    return error
+
+def same_unit_octal(input):
+    if is_octal(input): return input
+    return error
+
+#Methods to convert one unit to another
 
 #inches
 def in_to_cm(inch): return 2.54 * inch
-def in_to_m(inch): return .254 * inch
-def in_to_km(inch): return .000254 * inch
+def in_to_m(inch): return .0254 * inch
+def in_to_km(inch): return .0000254 * inch
 def in_to_feet(inch): return inch / 12
 def in_to_yard(inch): return inch / 36.0
 def in_to_mi(inch): return inch / 63360
@@ -104,26 +111,26 @@ def feet_to_km(feet): return feet / 3281.0
 
 #yards
 def yards_to_inches(yards): return yards * 36.0
-def yards_to_mi(yards): return yards * 1760
+def yards_to_m(yards): return yards * .9144
 def yards_to_cm(yards): return yards * 91.44
-def yards_to_m(yards): return yards / 1.094
+def yards_to_mi(yards): return yards / 1760
 def yards_to_km(yards): return yards / 1094.0
-def yards_to_feet(yards): return yards / 3.0
+def yards_to_feet(yards): return yards * 3.0
 
 #miles
 def mi_to_inches(miles): return miles * 63360.0
 def mi_to_feet(miles): return miles * 5280.0
 def mi_to_yards(miles): return miles * 1760.0
 def mi_to_cm(miles): return miles * 160934
-def mi_to_m(miles): return miles * 1609.0
-def mi_to_km(miles): return miles * 1.609
+def mi_to_m(miles): return miles * 1609.34
+def mi_to_km(miles): return miles * 1.6093
 
 #centimeter
 def cm_to_in(cm): return cm / 2.54
 def cm_to_feet(cm): return cm / 30.48
 def cm_to_yd(cm): return cm / (2.54 * 36.0)
-def cm_to_m(cm): return 100.0 / cm
-def cm_to_km(cm): return 100000.0 / cm
+def cm_to_m(cm): return cm  * .01
+def cm_to_km(cm): return cm * .00001
 def cm_to_mi(cm): return cm * .000006
 
 #meter
@@ -137,7 +144,7 @@ def m_to_km(m): return m / 1000
 #kilometer
 def km_to_in(km): return km * 39370.0
 def km_to_feet(km): return km * 3281.0
-def km_to_yards(km): return km * 1094.0
+def km_to_yards(km): return km * 1093.6
 def km_to_mi(km): return km / 1.609
 def km_to_cm(km): return km * 100000.0
 def km_to_m(km): return km * 1000
@@ -151,29 +158,30 @@ def same_length_unit(input): return input
 def getFile():
     
     file =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
-    fileopen = open(file)
+    if file != "":
+        fileopen = open(file)
 
-    csvreader = csv.reader(fileopen)
+        csvreader = csv.reader(fileopen)
 
-    global header
-    header = next(csvreader) 
-    length = len(header)
+        global header
+        header = next(csvreader) 
+        length = len(header)
 
-    global vars
-    vars = {}
+        global vars
+        vars = {}
 
-    for i in range(length):
-        vars[i+1] = []
+        for i in range(length):
+            vars[i+1] = []
 
-    for row in csvreader:
-        i=0
-        for item in row:
-            vars[i+1].append(item)
-            i+=1
+        for row in csvreader:
+            i=0
+            for item in row:
+                vars[i+1].append(item)
+                i+=1
 
-    fileopen.close()
+        fileopen.close()
 
-    return os.path.basename(file)
+        return os.path.basename(file)
 
 #Brings up Toplevel window to choose graph and units
 def selectUnits():
@@ -213,6 +221,7 @@ def selectUnits():
 
         submit_btn = Button(newWindow, text = "Submit", command= lambda: submit(value), highlightbackground="black", width=12)
         submit_btn.pack()
+
 
     def getUnits():
         if graph_option == 1:
@@ -588,6 +597,7 @@ def graph():
         graph_2()
     elif graph_option == 3:
         graph_3()
+
 
 
 

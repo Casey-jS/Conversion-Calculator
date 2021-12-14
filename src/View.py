@@ -148,7 +148,7 @@ class Numbers(tk.Frame):
                 if button is not clicked_button:
                     button.config(bg = "black", fg = blue)
             
-
+            
         in_box = Entry(self, bg = 'black', fg = blue, font = ("Helvetica", 16), width = 9)
         in_box.place(relx = .29, rely = .8, anchor = 'center')
 
@@ -275,7 +275,6 @@ class Length(tk.Frame):
 
         back_btn = Button(self, **default_button, command = lambda : controller.show_frame(Units), text = "Back")
         back_btn.place(relx= .1, rely = .05, anchor = 'center')
-
 
 #Graph class of type Frame
 class Graph(tk.Frame):
